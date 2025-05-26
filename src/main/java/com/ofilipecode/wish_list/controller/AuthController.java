@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ofilipecode.wish_list.dtos.user.UserLoginRequestDTO;
 import com.ofilipecode.wish_list.dtos.user.UserRegisterDTO;
 import com.ofilipecode.wish_list.dtos.user.UserResponseDTO;
 import com.ofilipecode.wish_list.service.AuthService;
@@ -23,5 +24,10 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<UserResponseDTO> register(@Valid @RequestBody UserRegisterDTO dto) {
         return ResponseEntity.ok(authService.register(dto));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@Valid @RequestBody UserLoginRequestDTO dto) {
+        return ResponseEntity.ok(authService.login(dto));
     }
 }
