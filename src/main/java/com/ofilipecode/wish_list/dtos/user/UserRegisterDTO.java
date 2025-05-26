@@ -1,4 +1,7 @@
 package com.ofilipecode.wish_list.dtos.user;
 
-public record UserRegisterDTO(String name, String email, String password) {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public record UserRegisterDTO(@NotBlank String name, @NotBlank @Email String email, @NotBlank String password) {
 }
