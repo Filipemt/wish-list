@@ -20,13 +20,13 @@ import com.ofilipecode.wish_list.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("wishlist")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService service;
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updateUser(@PathVariable String id,
                                             @RequestBody UserUpdateDTO dto) {
 
