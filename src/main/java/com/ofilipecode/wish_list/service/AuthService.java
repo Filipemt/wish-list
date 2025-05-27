@@ -8,6 +8,8 @@ import com.ofilipecode.wish_list.dtos.user.UserRegisterDTO;
 import com.ofilipecode.wish_list.dtos.user.UserResponseDTO;
 import com.ofilipecode.wish_list.model.User;
 import com.ofilipecode.wish_list.repository.UserRepository;
+import com.ofilipecode.wish_list.shared.exceptions.EmailDuplicatedException;
+import com.ofilipecode.wish_list.shared.exceptions.InvalidCredentialException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +23,7 @@ public class AuthService {
     public UserResponseDTO register(UserRegisterDTO dto) {
 
         if (userRepository.findByEmail(dto.email()).isPresent()) {
-            throw new RuntimeException("E-mail já cadastrado.");
+            throw new EmailDuplicatedException("E-mail já cadastrado.");
         }
 
         String encryptedPassword = passwordEncoder.encode(dto.password());
@@ -39,10 +41,10 @@ public class AuthService {
     public String login(UserLoginRequestDTO dto) {
 
         User user = userRepository.findByEmail(dto.email())
-            .orElseThrow(() -> new RuntimeException("E-mail ou senha incorretos!"));
+            .orElseThrow(() -> new InvalidCredentialException("E-mail ou senha incorretos!"));
 
         if (!passwordEncoder.matches(dto.password(), user.getPassword())) {
-            throw new RuntimeException("E-mail ou senha incorretos!");
+            throw new InvalidCredentialException("E-mail ou senha incorretos!");
         }
 
         return "Login com sucesso";

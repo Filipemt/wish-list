@@ -10,6 +10,7 @@ import com.ofilipecode.wish_list.dtos.user.UserResponseDTO;
 import com.ofilipecode.wish_list.dtos.user.UserUpdateDTO;
 import com.ofilipecode.wish_list.model.User;
 import com.ofilipecode.wish_list.repository.UserRepository;
+import com.ofilipecode.wish_list.shared.exceptions.UserNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +23,7 @@ public class UserService {
 
     public void updateUser(UUID id, UserUpdateDTO dto) {
         User user = repository.findById(id)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+            .orElseThrow(() -> new UserNotFoundException("User not found"));
 
         user.setName(dto.name());
         user.setEmail(dto.email());
