@@ -5,6 +5,7 @@ import java.util.UUID;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -48,5 +49,17 @@ public class UserController {
         }
 
         return ResponseEntity.ok(userResponseDTO.get());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteUser(@PathVariable String id) {
+        UUID userId = UUID.fromString(id);
+        
+        if (id == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            service.deleteById(userId);
+            return ResponseEntity.noContent().build();
+        }
     }
 }
