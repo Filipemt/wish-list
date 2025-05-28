@@ -7,5 +7,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.ofilipecode.wish_list.model.Wish;
 
 public interface WishRepository extends JpaRepository<Wish, UUID> {
-    
 }
