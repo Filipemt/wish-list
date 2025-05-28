@@ -35,6 +35,26 @@ public class UserService {
         repository.save(user);
     }
 
+    public void updatePartialUser(String id, UserUpdateDTO dto) {
+
+        UUID userId = UUID.fromString(id);
+    
+        User user = repository.findById(userId)
+            .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + id));
+
+        if (dto.name() != null && !dto.name().isBlank()) {
+            user.setName(dto.name());
+        }
+        if (dto.email() != null && !dto.email().isBlank()) {
+            user.setEmail(dto.email());
+        }
+        if (dto.password() != null && !dto.password().isBlank()) {
+            user.setPassword(passwordEncoder.encode(dto.password()));
+        }
+
+        repository.save(user);
+    }
+
     public Optional<UserResponseDTO> getUserById(UUID id) {
         return repository.findById(id)
             .map(user -> new UserResponseDTO(user.getId(), user.getName(), user.getEmail()));

@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +37,13 @@ public class UserController {
         return ResponseEntity.noContent().build();
 }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<Object> updateUserPartial(@PathVariable String id, @RequestBody UserUpdateDTO dto) {
+
+        service.updatePartialUser(id, dto);
+
+        return ResponseEntity.noContent().build();
+    }
     
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDTO> getUserById(@PathVariable String id) {
