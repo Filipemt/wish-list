@@ -21,7 +21,7 @@ import com.ofilipecode.wish_list.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("wishlist")
+@RequestMapping("user")
 @RequiredArgsConstructor
 public class UserController {
 
