@@ -1,5 +1,6 @@
 package com.ofilipecode.wish_list.service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -44,5 +45,14 @@ public class WishService {
             savedWish.getPriority(),
             savedWish.getUser().getId()
         );
+    }
+
+    public Optional<WishResponseDTO> getWishById(UUID id) {
+        return repository.findById(id)
+            .map(wish -> new WishResponseDTO(wish.getId(), wish.getTitle(), wish.getDescription(), wish.getLink(), wish.getPrice(), wish.getPriority(), wish.getUser().getId()));
+    }
+
+    public void deleteById(UUID id) {
+        repository.findById(id).ifPresent(wish -> repository.delete(wish));
     }
 }

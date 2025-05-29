@@ -1,9 +1,10 @@
 package com.ofilipecode.wish_list.controller;
 
+import java.util.Optional;
 import java.util.UUID;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,5 +32,33 @@ public class WishController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<WishResponseDTO> getWishById(@PathVariable String id) {
+        
+        UUID wishId = UUID.fromString(id);
+
+        Optional<WishResponseDTO> wishResponseDTO = service.getWishById(wishId);
+
+        if (wishResponseDTO.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(wishResponseDTO.get());
+    }
+
+    public ResponseEntity<Object> deleleWishById(@PathVariable String id) {
+        UUID wishId = UUID.fromString(id);
+
+        if (wishId == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            service.deleteById(wishId);
+            return ResponseEntity.noContent().build();
+        }
+
+    }
+
+    
     
 }
