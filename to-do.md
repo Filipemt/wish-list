@@ -12,7 +12,8 @@
 
 # Mais pro final do projeto
 
-- Refatorar o projeto adicionando a classe validation. (Deixar a regra de validação para essa camada da aplicação)
+- Refatorar o projeto adicionando a classe validation.
+- Tirar parte de validações da camada de controller
 - Adicionar JWT na aplicação
 - Documentar a API com Swagger
 - Subir deploy em nuvem grátis

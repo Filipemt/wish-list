@@ -63,7 +63,7 @@ public class UserController {
     public ResponseEntity<Object> deleteUser(@PathVariable String id) {
         UUID userId = UUID.fromString(id);
         
-        if (id == null) {
+        if (userId == null) {
             return ResponseEntity.notFound().build();
         } else {
             service.deleteById(userId);
