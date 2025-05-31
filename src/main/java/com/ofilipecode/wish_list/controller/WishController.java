@@ -37,7 +37,7 @@ public class WishController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<UpdateWishDTO> updateWish(@PathVariable UUID id, @RequestBody UpdateWishDTO dto) {
+    public ResponseEntity<UpdateWishDTO> updateWish(@PathVariable UUID id, @RequestBody @Valid UpdateWishDTO dto) {
 
         service.updateWish(id, dto);
 
