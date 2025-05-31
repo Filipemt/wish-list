@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.ofilipecode.wish_list.dtos.wish.CreateWishDTO;
+import com.ofilipecode.wish_list.dtos.wish.UpdateWishDTO;
 import com.ofilipecode.wish_list.dtos.wish.WishResponseDTO;
 import com.ofilipecode.wish_list.model.User;
 import com.ofilipecode.wish_list.model.Wish;
@@ -45,6 +46,35 @@ public class WishService {
             savedWish.getPriority(),
             savedWish.getUser().getId()
         );
+    }
+
+    public void updateWish(UUID id, UpdateWishDTO dto) {
+
+        // Pegar o Wish pelo ID passado na URL 
+        // Converter a String Id em UUID utilizando fromString
+        // Transformar o DTO em entidade
+        // Salvar a entidade no banco de dados 
+
+        Wish wish = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Wish not found"));
+
+            if (dto.title() != null && !dto.title().isBlank()) {
+                wish.setTitle(dto.title());
+            }
+            if (dto.description() != null && !dto.description().isBlank()) {
+                wish.setDescription(dto.description());
+            }
+            if (dto.link() != null && !dto.link().isBlank()) {
+                wish.setLink(dto.link());
+            }
+            if (dto.price() != null) {
+                wish.setPrice(dto.price());
+            }
+            if (dto.priority() != null) {
+                wish.setPriority(dto.priority());
+            }
+
+            repository.save(wish);
     }
 
     public Optional<WishResponseDTO> getWishById(UUID id) {
