@@ -52,17 +52,14 @@ public class UserController {
         
         Optional<UserResponseDTO> userResponseDTO = service.getUserById(userId);
 
-        if (userResponseDTO.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+        return userResponseDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 
-        return ResponseEntity.ok(userResponseDTO.get());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable String id) {
         UUID userId = UUID.fromString(id);
-        
+
         if (userId == null) {
             return ResponseEntity.notFound().build();
         } else {
