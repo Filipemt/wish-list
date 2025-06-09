@@ -52,11 +52,8 @@ public class WishController {
 
         Optional<WishResponseDTO> wishResponseDTO = service.getWishById(wishId);
 
-        if (wishResponseDTO.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+        return wishResponseDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 
-        return ResponseEntity.ok(wishResponseDTO.get());
     }
 
     @DeleteMapping("{id}")

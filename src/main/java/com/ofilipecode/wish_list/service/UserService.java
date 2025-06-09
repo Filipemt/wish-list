@@ -61,6 +61,6 @@ public class UserService {
     }
 
     public void deleteById(UUID id) {
-        repository.findById(id).ifPresent(user -> repository.delete(user));
+        repository.findById(id).ifPresent(repository::delete);
     }
 }

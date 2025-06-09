@@ -50,11 +50,6 @@ public class WishService {
 
     public void updateWish(UUID id, UpdateWishDTO dto) {
 
-        // Pegar o Wish pelo ID passado na URL 
-        // Converter a String Id em UUID utilizando fromString
-        // Transformar o DTO em entidade
-        // Salvar a entidade no banco de dados 
-
         Wish wish = repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Wish not found"));
 
@@ -83,6 +78,6 @@ public class WishService {
     }
 
     public void deleteById(UUID id) {
-        repository.findById(id).ifPresent(wish -> repository.delete(wish));
+        repository.findById(id).ifPresent(repository::delete);
     }
 }
